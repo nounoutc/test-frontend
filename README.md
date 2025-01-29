@@ -1,67 +1,76 @@
-# Getting started
+# Newsletter Page Implementation
 
-Hello there, you are a new recruit in our frontend team at Les Echos, and your first task is to implement our newsletter page.
+## Description
 
-You can find the design on our [figma](https://www.figma.com/file/u1hoAP9FOa1FHbBgkE346o/Entretient-Dev-2024?type=design&node-id=1-309&mode=design)
+Ce projet consiste en l'implémentation d'une page de newsletter dans une application Next.js. La page est responsive, utilise TypeScript pour assurer la sécurité des types et simule la récupération des données avec un rendu côté serveur (SSR). L'objectif est de présenter une liste de newsletters regroupées par site, avec des appels à l'action (CTA) dynamiques en fonction de l'état de l'utilisateur (abonné ou non).
 
-# Disclaimer
+## Fonctionnalités
 
-Our evaluation focuses on your problem-solving approach and mindset, observing how you tackle challenges and prioritize tasks.
+### 1. **Design Responsive**
+La page est entièrement responsive et s'adapte à différentes tailles d'écran grâce à l'utilisation de `styled-components` pour un style modulaire et maintenable.
 
-During the interview, explain your decisions and how you'd approach unfinished tasks with you had more time.
+### 2. **Affichage des Newsletters**
+Les newsletters sont affichées dans une liste, regroupées par leur site d'origine. Les données proviennent d'une source de données simulée, représentant un comportement d'API.
 
-It's your thought process and strategy, rather than completion, that we're interested in.
+### 3. **CTA Dynamique**
+Le bouton d'appel à l'action pour chaque newsletter varie en fonction de l'abonnement de l'utilisateur :
+- Si l'utilisateur possède l'abonnement approprié, le bouton affiche "S'inscrire".
+- Si l'utilisateur n'a pas accès à la newsletter, le bouton affiche "S'abonner".
 
-Please do code as you were already a part of our frontend team, it is essential to us.
+Cette fonctionnalité est gérée par le champ `subscriptions` dans les données simulées et l'état de l'utilisateur.
 
-You have to use NextJS, wether it is the latest version (app router), or if you don't feel comfortable with it, use the pages router.
+### 4. **Simulation des Données**
+Les newsletters et les utilisateurs sont simulés à l'aide de données fictives. L'état de l'utilisateur est géré pour représenter trois types de profils :
+- `USER_WITH_ONE_SUBSCRIPTION`
+- `USER_WITH_MULTIPLE_SUBSCRIPTION`
+- `USER_WITHOUT_SUBSCRIPTION`
 
-# What is your mission ?
+Chaque type d'utilisateur a un ensemble différent d'abonnements actifs, et le CTA s'adapte en fonction de cet état.
 
-## Styling
+### 5. **Rendu Côté Serveur (SSR)**
+La page utilise le rendu côté serveur de Next.js pour pré-rendre les newsletters avec les données, afin d'assurer une meilleure performance et des avantages SEO.
 
-Regardless of point 1 and 2, the page should be responsive.
+### 6. **Sécurité des Types avec TypeScript**
+Tout le projet utilise TypeScript pour garantir la sécurité des types. Les profils utilisateurs, les newsletters et les fonctions qui gèrent les abonnements sont tous typés pour améliorer l'expérience de développement.
 
-1. Implement the styling using what you like to use (chakra-ui, material-ui or something else)
-2. Implement the styling yourself, using the library of your choice (we are using styled-components and pandaCSS for instance)
+## Installation
 
-:warning: We are not asking for a pixel perfect copy of the figma, we just wanted to gave you a direction on where to go, it does not have to be the exact same thing really, surprise us :warning:
+1. Clonez ce dépôt :
+   ```bash
+   git clone <url_du_dépôt>
+2- npm install
+3- npm run dev
+4- L'application sera disponible à l'adresse suivante : http://localhost:3000
 
-## Features
+### 7. Approche pour les Tâches Non Terminées
+Si j'avais plus de temps, je :
+Ajouterais des tests unitaires et d'intégration pour valider les composants et la logique métier.
 
-The current user will be representated by 3 different mock (`USER_WITH_ONE_SUBSCRIPTION`, `USER_WITH_MULTIPLE_SUBSCRIPTION`, `USER_WITHOUT_SUBSCRIPTION`), you can find these at `src/mocks/user.ts`.
-
-What you need to look at is the `subscriptions` key, it represent the subscriptions that the user currently have active.
-
-:warning: The app should be working with all these 3 types of profile in mind. :warning:
-
-## Implement a list of newsletters, grouped by site.
-
-You can find mocks of the items in `src/mocks/newsletters.ts`, you have to display the list of all the newsletters, but grouped by the `site` key.
-
-## The CTA must be different regarding the user's status
-
-In every newsletter object, you have a key `subscriptions`, which is an array of strings, it represents the right needed to access this newsletter.
-
-If the field is an empty array, it means the newsletter can be accessed by everyone, otherwise, the user should have at least of the right listed in the array.
-
-The label of the CTA (call to action) will be `S'inscrire` if the user has access to it, otherwise `S'abonner`
-
-## Everything should be typed
-
-Everything has to be typed with typescript, show us what you can do !
-
-## The newsletter should come from a fetching function
-
-Even if we don't provide an API to call, you have to simulate the fetching.
-Also, the app should work in SSR.
-
-# Time
-
-Take around 4 hours to do this test, we really respect your time and don't want you to spend days on this.
-
-# Final word
-
-Good luck and again, please do this as you were already an developer in our team.
-
-If you have any question feel free to contact us and we will quickly respond
+### 8.Structure du Projet
+frontend-test/
+│
+├── src/
+│   ├── app/
+│   │   ├── components/                    # Composants réutilisables
+│   │   │   ├── Divider.tsx                # Composant de séparation
+│   │   │   ├── Header.tsx                 # Composant d'en-tête
+│   │   │   ├── NewsletterCard.tsx         # Composant de carte de newsletter
+│   │   │   ├── NewsletterSection.tsx      # Composant pour la section des newsletters
+│   │   ├── lib/                           # Bibliothèque de fonctions utilitaires
+│   │   │   ├── fetchNewsletters.ts        # Fonction pour récupérer les newsletters
+│   │   │   ├── fetchUser.ts               # Fonction pour récupérer les utilisateurs
+│   │   ├── styles/                        # Dossier des styles
+│   │   │   ├── globalStyles.ts            # Fichier de styles globaux
+│   │   ├── types/                         # Types TypeScript
+│   │   │   ├── newsletter.ts              # Type pour les newsletters
+│   │   │   ├── user.ts                    # Type pour les utilisateurs
+│   ├── mocks/                             # Dossier pour les données simulées
+│   │   ├── newsletters.ts                 # Données simulées pour les newsletters
+│   │   ├── user.ts                        # Données simulées pour les utilisateurs
+│   ├── page.tsx                           # Page principale du projet
+│   ├── layout.tsx                         # Layout principal de l'application
+│   ├── StyledComponentsRegistry.tsx       # Enregistrement des styled-components
+│
+├── tsconfig.json                          # Configuration TypeScript
+├── package.json                           # Dépendances et scripts du projet
+└── README.md                              # Documentation du projet
